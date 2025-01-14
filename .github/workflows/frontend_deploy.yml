@@ -37,7 +37,7 @@ jobs:
           echo "Building and pushing FE image: $IMAGE_TAG"
           docker buildx build --platform linux/amd64,linux/arm64 \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --push 
+          --push .
       - name: Save Frontend Image Tag to S3
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
