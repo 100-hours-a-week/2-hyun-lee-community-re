@@ -11,7 +11,8 @@
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^4.2.4"
+    "web-vitals": "^4.2.4",
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "start": "export PORT=8001 &&react-scripts start",
