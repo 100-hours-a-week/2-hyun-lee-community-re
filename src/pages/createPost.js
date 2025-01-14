@@ -50,7 +50,22 @@ const CreatePost = () =>{
     
       const handleImageChange = (e) => {
         const file = e.target.files[0];
+        const maxSize = 1 * 1024 * 1024 ;
+        const maxFileNameLength =30;
+        if(file){
+        if(file.size > maxSize){
+          alert("파일의 크기는 1MB를 초과 할 수 없습니다.");
+          e.target.value = "";
+          return ;
+        }
+        if(file.name.length > maxFileNameLength){
+          alert(`파일 이름은 최대 ${maxFileNameLength}글자까지 가능합니다.`);
+          e.target.value = "";
+          return ;
+        }
+
         setPostImage(file);
+      }
       };
 
       const handleBack = () => {

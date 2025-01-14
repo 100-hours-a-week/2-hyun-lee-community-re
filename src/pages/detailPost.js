@@ -42,7 +42,6 @@ const DetailPost = () =>{
                 if(currentUser) setCurrentUser(currentUser);
                 const postDetails = await fetchPostDetails(post_id);
                 
-                console.log(postDetails.posts[0]);
                 setPost(postDetails.posts[0]);
                 setLikeCount(postDetails.posts[0].likes_count);
                 setUserId(postDetails.user_id);

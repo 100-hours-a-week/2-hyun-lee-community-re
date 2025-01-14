@@ -57,7 +57,7 @@ const EditPost = () =>{
               }
        
          } catch (err) {
-        console.error("게시글 데이터를 불러오는 중 오류가 발생했습니다:", err);
+            console.error("게시글 데이터를 불러오는 중 오류가 발생했습니다:", err);
   
         }
         }
@@ -83,8 +83,19 @@ const EditPost = () =>{
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        const maxSize = 1 * 1024 * 1024 ;
+        const maxFileNameLength =30;
         if (file) {
-            setCurrentPostImage(file);
+
+          if(file.size > maxSize){
+            alert("파일의 크기는 1MB를 초과 할 수 없습니다.");
+            return ;
+          }
+          if(file.name.length > maxFileNameLength){
+            alert(`파일 이름은 최대 ${maxFileNameLength}글자까지 가능합니다.`);
+            return ;
+          }
+          setCurrentPostImage(file);
           setCurrentFileName(file.name);
         } else{
             setCurrentPostImage(existingPostImage);
@@ -122,7 +133,7 @@ const EditPost = () =>{
             alert("게시글 수정에 실패했습니다.");
           }
         } catch (error) {
-          console.error("Error updating post:", error);
+          console.error("Error:", error);
           alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
         }
         }
