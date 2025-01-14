@@ -1,0 +1,17 @@
+.custom-class-card{
+    max-width: 1200px; 
+    margin: 0 auto; 
+    width: 100%; 
+    box-sizing: border-box;
+    
+}
+
+#custom-card{
+    background-color:transparent;
+    border: none;
+    box-shadow: 0px 4px 6px transparent;
+    font-family: "Chakra Petch", serif;
+    font-weight: 300;
+    font-style: normal;
+      
+}
