@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import { getImageUrl } from "../api/userApi";
 import { Card, Button, Form, Row ,Col } from "react-bootstrap";
 import { unescapeHtml } from "../utils/escape";
+import "../styles/editPost-style.css";
 
 
 const EditPost = () =>{
@@ -191,7 +192,7 @@ const EditPost = () =>{
                 >
                     이미지 선택
                 </Button>
-                <span>{currentFileName}</span>
+                <span className="file-name-box">{currentFileName}</span>
                 <Form.Control
                   id="fileInput"
                   type="file"
