@@ -21,7 +21,7 @@
     COPY --from=builder /app/build /usr/share/nginx/html
     
     # 2) Nginx 설정 파일 복사 (위에서 만든 default.conf)
-    COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+    COPY nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
     
     # Nginx 기본 포트
     EXPOSE 80
