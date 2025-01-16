@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-
+import "../styles/confirmationModal-style.css"
 const ConfirmationModal = ({ show, title, message, onConfirm, onCancel}) =>{
     return (
         <Modal show ={show} onHide={onCancel} centered>
