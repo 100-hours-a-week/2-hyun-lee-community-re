@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { fetchUserData } from "../utils/fetchUserData.js";
 
 const ProfileImageUpload = ({ onImageChange, existingImage }) => {
   const canvasRef = useRef(null);
@@ -37,7 +36,12 @@ const ProfileImageUpload = ({ onImageChange, existingImage }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    const maxSize = 1 * 1024 * 1024 ;
     if (file) {
+      if(file.size > maxSize){
+        alert("파일의 크기는 1MB를 초과 할 수 없습니다.");
+        return ;
+      }
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result);
