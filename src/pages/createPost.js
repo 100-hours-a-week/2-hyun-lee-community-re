@@ -98,7 +98,7 @@ const CreatePost = () =>{
 
       return (
         <>
-         <Header title="아무말 대잔치" profileImage={user ? getImageUrl(user.userInfo.profile_image) : null} onBack={handleBack} />
+         <Header title="구름 아래" profileImage={user ? getImageUrl(user.userInfo.profile_image) : null} onBack={handleBack} />
           <Card id="custom-card" className="post-header-card custom-class-card" >
             <Row className="d-flex flex-column align-items-center">
               <Col>

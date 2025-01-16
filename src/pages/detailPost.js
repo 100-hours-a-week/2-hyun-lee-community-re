@@ -101,7 +101,7 @@ const DetailPost = () =>{
 
     return (
         <>
-        <Header title="아무말 대잔치" profileImage={currentUser ? getImageUrl(currentUser.userInfo.profile_image) : null} onBack={()=> navigate("/board")} />
+        <Header title="구름 아래" profileImage={currentUser ? getImageUrl(currentUser.userInfo.profile_image) : null} onBack={()=> navigate("/board")} />
         <div className="post-container">
         {post && (
           <PostHeader

@@ -33,7 +33,7 @@ const Header = ({ title, profileImage, onBack }) => {
           style={{
             cursor: location.pathname === "/" || location.pathname === "/register" ? "default" : "pointer",
           }}
-        >{title}</Navbar.Brand>
+        >  <img src="/images/cloud.png" alt="Logo" className="brand-logo" />{title}</Navbar.Brand>
             {profileImage ? (
         <ProfileDropdown avatar={profileImage} />
         ) : (

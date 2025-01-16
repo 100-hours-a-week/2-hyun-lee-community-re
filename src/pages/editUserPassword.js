@@ -92,7 +92,7 @@ const EditUserPassword = () =>{
     return (
         <>
           <Header 
-            title="아무말 대잔치" 
+            title="구름 아래" 
             profileImage={user ? getImageUrl(user.userInfo.profile_image) : null} 
             onBack={handleBack} 
           />

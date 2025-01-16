@@ -44,11 +44,11 @@ const Board = () =>{
     }
     return (
         <>
-        <Header title="아무말 대잔치" profileImage={user ? getImageUrl(user.userInfo.profile_image) : null} />
+        <Header title="구름 아래" profileImage={user ? getImageUrl(user.userInfo.profile_image) : null} />
         <Card id="custom-card"className="post-header-card">
         <Row className="custom-row align-items-center custom-container ">
             <Col xs={12}>
-                <h1 className="custom-heading">안녕하세요 <br></br>아무말 대잔치 게시판입니다.</h1>
+                <h1 className="custom-heading">안녕하세요 <br></br>구름 아래게시판입니다.</h1>
             </Col>
             <Col xs={12} className="d-flex justify-content-end">
                 <Button
