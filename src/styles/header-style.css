@@ -1,6 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jersey+15&display=swap');
 
+@font-face {
+    font-family: 'Hakgyoansim';
+    src: url('../../public/fonts/Hakgyoansim.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
 
+@font-face {
+    font-family: 'HakgyoansimKkokkoma';
+    src: url('../../public/fonts/HakgyoansimKkokkoma.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }  
 #custom-navbar{
     height: 150px;
     width: 100%;
@@ -11,7 +23,7 @@
       }
  
     .navbar-brand {
-        font-family: "Black Han Sans", serif;
+        font-family: "HakgyoansimKkokkoma", serif;
         font-weight: 400; 
         font-style: normal;
         font-size: 2rem; 

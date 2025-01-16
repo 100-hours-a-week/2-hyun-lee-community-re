@@ -11,13 +11,10 @@
     border: transparent;
 }
 
-  .profile-menu {
-    min-width: 200px;
-    text-align: left;
-  }
   
   .profile-menu .dropdown-item {
     padding: 10px 15px;
+    font-family: "Hakgyoansim", serif;
   }
   
   .profile-menu .dropdown-item:hover {

@@ -100,9 +100,12 @@ const Register = () => {
     };
    }
 
+   const handleBack = () =>{
+      navigate("/");
+   }
    return (
     <>
-      <Header title="아무말 대잔치" />
+      <Header title="아무말 대잔치" onBack={handleBack}/>
       <Card id="custom-card" className="post-header-card custom-class-card">
         <Row className="d-flex justify-content-center align-items-center">
           <Col xs={6}>
