@@ -55,7 +55,9 @@ const EditPost = () =>{
             if (post.post_image) {
                 const response = await fetchResource(post.post_image);
                 const blob = await response.blob();
-                const fileName = decodeURIComponent(post.post_image.match(/[^-]+$/)[0]);
+                const dashIndex = post.post_image.indexOf("-");
+                const fileName = post.post_image.substring(dashIndex + 1);
+               
                 setExistingFileName(fileName);
                 setCurrentFileName(fileName);
                 setCurrentPostImage(new File([blob], fileName, { type: blob.type }));
@@ -206,7 +208,7 @@ const EditPost = () =>{
                   className="me-3"
                   onClick={() => document.getElementById("fileInput").click()}
                 >
-                    이미지 선택
+                    파일 선택
                 </Button>
                 <span className="file-name-box">{currentFileName}</span>
                 <Form.Control
@@ -224,7 +226,7 @@ const EditPost = () =>{
                         className="mb-3"
                         onClick={handleDeleteImage}
                         >
-                        이미지 삭제
+                        파일 삭제
                         </Button>
                     ) : (
                         <div
