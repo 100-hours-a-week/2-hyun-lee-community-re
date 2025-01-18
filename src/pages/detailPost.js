@@ -15,7 +15,7 @@ import PostHeader from "../components/PostHeader";
 import CommentsSection from "../components/CommentsSection"
 import ConfirmationModal from "../components/ConfirmationModal";
 import { getImageUrl } from "../api/userApi";
-
+import { authCheck } from "../api/authCheckApi";
 import "../styles/detailPost-style.css";
 
 
@@ -38,8 +38,12 @@ const DetailPost = () =>{
             
         
              try {
+                const isAuthenticated = await authCheck();
+                if (!isAuthenticated) return ;
+
                 const currentUser = await fetchUserData();
                 if(currentUser) setCurrentUser(currentUser);
+                
                 const postDetails = await fetchPostDetails(post_id);
                 
                 setPost(postDetails.posts[0]);

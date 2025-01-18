@@ -9,6 +9,7 @@ import ConfirmationModal from "../components/ConfirmationModal";
 import { fetchUserData } from "../utils/fetchUserData"
 import ProfileImageUpload from "../components/ProfileImageUpload";
 import Header from "../components/Header";
+import { authCheck } from "../api/authCheckApi";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
 
 const EditUser = () =>{
@@ -28,6 +29,10 @@ const EditUser = () =>{
     useEffect (()=>{
         const fetchData = async ()=>{
             try {
+
+                const isAuthenticated = await authCheck();
+                if (!isAuthenticated) return ;
+                
                 const userInfo = await fetchUserData();
                 if (userInfo && userInfo.userInfo) {
                     setUser(userInfo);

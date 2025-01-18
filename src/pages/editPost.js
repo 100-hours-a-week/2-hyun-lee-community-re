@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import { getImageUrl } from "../api/userApi";
 import { Card, Button, Form, Row ,Col } from "react-bootstrap";
 import { unescapeHtml } from "../utils/escape";
+import { authCheck } from "../api/authCheckApi";
 import "../styles/editPost-style.css";
 
 
@@ -35,6 +36,10 @@ const EditPost = () =>{
             
         
         try{
+
+            const isAuthenticated = await authCheck();
+            if (!isAuthenticated) return ;
+
             const userInfo = await fetchUserData();
             if(userInfo) setUser(userInfo);
             const postData = await fetchPostDetails(postId);
@@ -85,7 +90,7 @@ const EditPost = () =>{
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         const maxSize = 1 * 1024 * 1024 ;
-        const maxFileNameLength =30;
+        const maxFileNameLength =50;
         if (file) {
 
           if(file.size > maxSize){

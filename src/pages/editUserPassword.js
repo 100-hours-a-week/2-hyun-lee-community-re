@@ -5,6 +5,7 @@ import { validatePassword, validateConfirmPassword  } from "../utils/validators"
 import { updateUserPassword, logout } from "../api/userApi";
 import { getImageUrl } from "../api/userApi";
 import Header from "../components/Header";
+import { authCheck } from "../api/authCheckApi";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
 
 const EditUserPassword = () =>{
@@ -23,6 +24,10 @@ const EditUserPassword = () =>{
     useEffect (()=>{
         const fetchData = async ()=>{
             try {
+
+                const isAuthenticated = await authCheck();
+                if (!isAuthenticated) return ;
+
                 const userInfo = await fetchUserData();
                 if (userInfo && userInfo.userInfo) {
                     setUser(userInfo);

@@ -6,6 +6,7 @@ import PostList from "../components/PostList";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { getImageUrl } from "../api/userApi";
 import { fetchUserData } from "../utils/fetchUserData"
+import { authCheck } from "../api/authCheckApi";
 import "../styles/board-style.css";
 
 
@@ -21,6 +22,9 @@ const Board = () =>{
         const fetchData = async () =>{
 
             try{
+                const isAuthenticated = await authCheck();
+                if (!isAuthenticated) return ;
+                
                 const userInfo = await fetchUserData();
                 if(userInfo) setUser(userInfo);
 
