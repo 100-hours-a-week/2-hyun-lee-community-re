@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import Swal from 'sweetalert2';
 import { addComment, deleteComment, updateComment } from "../api/postApi";
 import { formatDate } from "../utils/formatDate";
 import ConfirmationModal from "./ConfirmationModal";
 import { Card, Button, Form, Row, Col, Image } from "react-bootstrap";
-
+import "../styles/swal2-style.css";
 
 const CommentsSection = ({ comments, postId, setComments, user, setCommentCount }) => {
     const [commentContent, setCommentContent] = useState("");
@@ -14,7 +15,13 @@ const CommentsSection = ({ comments, postId, setComments, user, setCommentCount 
 
     const handleAddComment = async () => {
       if (!commentContent.trim()) {
-        alert("댓글 내용을 입력해주세요.");
+        Swal.fire({
+          title: '댓글 내용 입력',
+          text: '댓글 내용을 입력해주세요.',
+          icon: 'warning', 
+          confirmButtonText: '확인'
+        });
+      
         return;
       }
   

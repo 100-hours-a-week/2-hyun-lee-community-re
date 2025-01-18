@@ -33,7 +33,7 @@ const PostItem = ({ post }) =>{
               style={{ width: "40px", height: "40px", objectFit: "cover" }}
             />
             <div className="ms-3">
-              <div className="fw-bold">{post.nickname}</div>
+              <div className="fw-bold">{unescapeHtml(post.nickname)}</div>
               <small className="text-muted">{formatDate(post.create_at)}</small>
             </div>
           </div>

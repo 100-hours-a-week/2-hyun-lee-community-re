@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import Swal from 'sweetalert2';
 import Form from "react-bootstrap/Form";
+import "../styles/swal2-style.css";
 
 const ProfileImageUpload = ({ onImageChange, existingImage }) => {
   const canvasRef = useRef(null);
@@ -39,7 +41,12 @@ const ProfileImageUpload = ({ onImageChange, existingImage }) => {
     const maxSize = 1 * 1024 * 1024 ;
     if (file) {
       if(file.size > maxSize){
-        alert("파일의 크기는 1MB를 초과 할 수 없습니다.");
+        Swal.fire({
+          title: '파일 크기 초과',
+          text: '파일의 크기는 1MB를 초과할 수 없습니다.',
+          icon: 'error',
+          confirmButtonText: '확인'
+        });
         return ;
       }
       const reader = new FileReader();

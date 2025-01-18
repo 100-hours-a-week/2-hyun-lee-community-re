@@ -3,7 +3,6 @@ import ProfileImageUpload from "../components/ProfileImageUpload";
 import Header from "../components/Header";
 import { Row, Col, Form, Button, Card } from "react-bootstrap";
 import { validateProfile, validateEmail, validateNickname, validateConfirmPassword, validatePassword } from "../utils/validators";
-import { escapeHtml } from "../utils/escape";
 import { registerUser } from "../api/registerApi";
 import { useNavigate } from "react-router-dom";
 
@@ -78,7 +77,7 @@ const Register = () => {
       formData.append("email",email);
       formData.append("password",password);
       formData.append("confirmPassword",confirmPassword);
-      formData.append("nickname",escapeHtml(nickname));
+      formData.append("nickname",nickname);
 
       try{
         const response = await registerUser(formData);

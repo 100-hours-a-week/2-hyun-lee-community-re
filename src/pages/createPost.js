@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Swal from 'sweetalert2';
 import { validatePostTitle, validatePostContent } from "../utils/validators.js";
 import { createPost } from "../api/postApi.js";
 import { escapeHtml } from "../utils/escape";
@@ -9,7 +10,7 @@ import Header from "../components/Header";
 import {Card, Button, Form, Row, Col} from "react-bootstrap";
 import { authCheck } from "../api/authCheckApi";
 import "../styles/createPost-style.css";
-
+import "../styles/swal2-style.css";
 
 
 const CreatePost = () =>{
@@ -57,12 +58,22 @@ const CreatePost = () =>{
         const maxFileNameLength =50;
         if(file){
         if(file.size > maxSize){
-          alert("파일의 크기는 1MB를 초과 할 수 없습니다.");
+          Swal.fire({
+            title: '파일 크기 초과',
+            text: '파일의 크기는 1MB를 초과할 수 없습니다.',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           e.target.value = "";
           return ;
         }
         if(file.name.length > maxFileNameLength){
-          alert(`파일 이름은 최대 ${maxFileNameLength}글자까지 가능합니다.`);
+          Swal.fire({
+            title: '파일 이름 제한',
+            text: `파일 이름은 최대 ${maxFileNameLength}글자까지 가능합니다.`,
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           e.target.value = "";
           return ;
         }

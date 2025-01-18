@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 import {  updateUserProfile, deleteUserAccount } from "../api/userApi";
 import { deleteUserComments, deleteUserPosts } from "../api/postApi";
 import { validateNickname } from "../utils/validators";
-import { escapeHtml } from "../utils/escape";
 import { getImageUrl } from "../api/userApi";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { fetchUserData } from "../utils/fetchUserData"
@@ -11,6 +11,7 @@ import ProfileImageUpload from "../components/ProfileImageUpload";
 import Header from "../components/Header";
 import { authCheck } from "../api/authCheckApi";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
+import "../styles/swal2-style.css";
 
 const EditUser = () =>{
     const [user, setUser]= useState(null);
@@ -32,7 +33,7 @@ const EditUser = () =>{
 
                 const isAuthenticated = await authCheck();
                 if (!isAuthenticated) return ;
-                
+
                 const userInfo = await fetchUserData();
                 if (userInfo && userInfo.userInfo) {
                     setUser(userInfo);
@@ -66,7 +67,7 @@ const EditUser = () =>{
         if(isFormValid){
             
             const formData = new FormData();
-            formData.append("nickname",escapeHtml(nickname));
+            formData.append("nickname",nickname);
             formData.append("profileImage",profileImage);
             formData.append('user_id',user.userInfo.user_id);
 
@@ -77,11 +78,26 @@ const EditUser = () =>{
                     if(response.message.includes("중복된 닉네임 입니다.")){
                         setNicknameError("*중복된 닉네임입니다.");
                     } else{
-                        alert("회원 정보 수정 실패");
+                      Swal.fire({
+                        title: '오류',
+                        text: '회원 정보 수정에 실패했습니다.',
+                        icon: 'error',
+                        confirmButtonText: '확인'
+                      });
+                      
                     }
                 } else{
-                    alert(response.message);
-                    navigate("/board");
+                  Swal.fire({
+                    title: '회원 정보 변경 완료',
+                    text: response.message,
+                    icon: 'success',
+                    confirmButtonText: '확인'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate("/board");
+                    }
+                  });
+                  
                     
                 }
             } catch (error) {
@@ -101,11 +117,23 @@ const EditUser = () =>{
           await deleteUserComments(user.userInfo.user_id);
           await deleteUserPosts(user.userInfo.user_id);
           await deleteUserAccount(user.userInfo.user_id);
-          alert("회원 탈퇴가 완료되었습니다.");
+          Swal.fire({
+            title: '회원 탈퇴',
+            text: '회원 탈퇴가 완료되었습니다.',
+            icon: 'success',
+            confirmButtonText: '확인'
+          });
+          
           navigate("/");
         } catch (error) {
           console.error("Error:", error);
-          alert("회원 탈퇴에 실패했습니다.");
+          Swal.fire({
+            title: '오류',
+            text: '회원 탈퇴에 실패했습니다.',
+            icon: 'error', 
+            confirmButtonText: '확인'
+          });
+          
         }
         setIsModalOpen(false);
       };

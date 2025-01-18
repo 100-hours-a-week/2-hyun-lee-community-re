@@ -2,7 +2,6 @@ import { getUserProfile } from "../api/userApi";
 
 export async function fetchUserData() {
     try {
-  
       const userData = await getUserProfile();
       return userData;
     } catch (err) {
