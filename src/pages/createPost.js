@@ -45,6 +45,7 @@ const CreatePost = () =>{
 
       const handleContentChange = (e) => {
         const value = e.target.value;
+        
         setPostContent(value);
 
         const {valid, message} = validatePostContent(value);

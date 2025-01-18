@@ -34,8 +34,6 @@ const EditPost = () =>{
 
     useEffect(() => {
         const fetchData = async () =>{
-
-            
         
         try{
 
@@ -82,6 +80,7 @@ const EditPost = () =>{
 
     const handleContentChange = (e) => {
         const value = e.target.value;
+        
         setPostContent(value);
 
         const {valid, message} = validatePostContent(value);
