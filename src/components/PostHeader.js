@@ -52,24 +52,25 @@ const PostHeader = ({ post, likeCount, liked, handleLike, userId, handleDeletePo
 
                 <Row>
                     <Col>
-                        <div id="like-item" className="stat-item" onClick={handleLike}>
+                        <div id="like-item" className="stat-item" >
                         <span className="stat-number">{likeCount}</span>
                         <img
                             src={liked ? "/images/like2.png" : "/images/like1.png"}
                             alt="좋아요 아이콘"
+                            onClick={handleLike}
                         />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="stat-item">
-                        <span className="stat-number">{formatCount(post.view_count)}</span>
-                        <img src="/images/views.png" alt="조회수 아이콘" />
                         </div>
                     </Col>
                     <Col>
                         <div className="stat-item">
                         <span className="stat-number">{formatCount(commentCount)}</span>
                         <img src="/images/comments.png" alt="댓글 아이콘" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="stat-item">
+                        <span className="stat-number">{formatCount(post.view_count)}</span>
+                        <img src="/images/views.png" alt="조회수 아이콘" />
                         </div>
                     </Col>
                 </Row>
