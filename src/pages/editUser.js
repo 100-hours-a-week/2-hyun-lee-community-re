@@ -180,7 +180,7 @@ const EditUser = () =>{
                   variant="primary"
                   type="submit"
                   disabled={!isFormValid}
-                  className="w-50"
+                  className="w-100"
                 >
                   수정하기
                 </Button>
@@ -192,7 +192,7 @@ const EditUser = () =>{
                 <Button
                   variant="danger"
                   onClick={handleWithdraw}
-                  className="w-50"
+                  className="w-100"
                 >
                   회원탈퇴
                 </Button>

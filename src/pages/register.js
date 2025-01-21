@@ -182,7 +182,7 @@ const Register = () => {
                   <Button
                     variant="primary"
                     type="submit"
-                    className="w-50 mb-3"
+                    className="w-100 mb-3"
                     disabled={!isFormValid}
                   >
                     회원가입
@@ -193,7 +193,7 @@ const Register = () => {
               <Col className="d-flex justify-content-center">
                 <Button
                   variant="success"
-                  className="w-50"
+                  className="w-100"
                   onClick={() => navigate("/")}
                 >
                   로그인하러가기

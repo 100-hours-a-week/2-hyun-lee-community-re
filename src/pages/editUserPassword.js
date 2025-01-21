@@ -158,7 +158,7 @@ const EditUserPassword = () =>{
                       <Button
                         variant="primary"
                         type="submit"
-                        className="w-50"
+                        className="w-100"
                         disabled={!isFormValid}
                       >
                         수정하기

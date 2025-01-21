@@ -62,7 +62,7 @@ const Login = () =>{
                 <Row>
                   <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="email">
-                      <Form.Label>이메일</Form.Label>
+                      <Form.Label >이메일</Form.Label>
                       <Form.Control
                         type="email"
                         placeholder="이메일을 입력하세요"
@@ -96,7 +96,7 @@ const Login = () =>{
                       <Button
                         variant="primary"
                         type="submit"
-                        className="w-50 mb-3"
+                        className="w-100 mb-3"
                         disabled={!isFormValid}
                       >
                         로그인
@@ -107,7 +107,7 @@ const Login = () =>{
                   <Col className="d-flex justify-content-center">
                     <Button
                       variant="success"
-                      className="w-50"
+                      className="w-100"
                       onClick={() => navigate("/register")} 
                     >
                       회원가입
