@@ -16,6 +16,7 @@ import "../styles/swal2-style.css";
 const EditUser = () =>{
     const [user, setUser]= useState(null);
     const [nickname, setNickname] = useState("");
+    const [email, setEmail] = useState("");
     const [existingProfileImage, setExistingProfileImage] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     
@@ -35,9 +36,11 @@ const EditUser = () =>{
                 if (!isAuthenticated) return ;
 
                 const userInfo = await fetchUserData();
+  
                 if (userInfo && userInfo.userInfo) {
                     setUser(userInfo);
-                    setNickname(userInfo.userInfo.nickname); 
+                    setNickname(userInfo.userInfo.nickname);
+                    setEmail(userInfo.userInfo.email); 
                     setExistingProfileImage(userInfo.userInfo.profile_image);
                     setProfileImage(userInfo.userInfo.profile_image)
                 } 
@@ -157,6 +160,21 @@ const EditUser = () =>{
                     onImageChange={handleProfileImageChange}
                     existingImage={existingProfileImage}
                   />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>이메일</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="email"
+                        value={email}
+                        className="form-control-lg"
+                        disabled
+                        style={{
+                          backgroundColor: '#adb5bd',
+                          borderColor: '#495057', 
+                        }}
+                    />
                 </Form.Group>
     
                 <Form.Group className="mb-3">
