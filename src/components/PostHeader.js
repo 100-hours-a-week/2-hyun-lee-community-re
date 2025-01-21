@@ -4,7 +4,7 @@ import { formatDate } from "../utils/formatDate";
 import { Card, Row, Col, Image } from "react-bootstrap";
 import "../styles/postHeader-style.css"; 
 import { unescapeHtml } from "../utils/escape";
-const PostHeader = ({ post, likeCount, handleLike, userId, handleDeletePost, handleEditPost, commentCount }) => {
+const PostHeader = ({ post, likeCount, liked, handleLike, userId, handleDeletePost, handleEditPost, commentCount }) => {
     const profileImageUrl = post.profile_image;
     const postImageUrl = post.post_image;
 
@@ -52,24 +52,28 @@ const PostHeader = ({ post, likeCount, handleLike, userId, handleDeletePost, han
 
                 <Row>
                     <Col>
-                        <div id="like-item"className="stat-item" onClick={handleLike}>
-                            <span className="stat-number">{likeCount}</span>
-                            <div className="stat-label">좋아요</div>
+                        <div id="like-item" className="stat-item" onClick={handleLike}>
+                        <span className="stat-number">{likeCount}</span>
+                        <img
+                            src={liked ? "/images/like2.png" : "/images/like1.png"}
+                            alt="좋아요 아이콘"
+                        />
                         </div>
                     </Col>
                     <Col>
                         <div className="stat-item">
-                            <span className="stat-number">{formatCount(post.view_count)}</span>
-                            <div className="stat-label">조회수</div>
+                        <span className="stat-number">{formatCount(post.view_count)}</span>
+                        <img src="/images/views.png" alt="조회수 아이콘" />
                         </div>
                     </Col>
                     <Col>
                         <div className="stat-item">
-                            <span className="stat-number">{formatCount(commentCount)}</span>
-                            <div className="stat-label">댓글</div>
+                        <span className="stat-number">{formatCount(commentCount)}</span>
+                        <img src="/images/comments.png" alt="댓글 아이콘" />
                         </div>
                     </Col>
                 </Row>
+
             </Card.Body>
         </Card>
     );

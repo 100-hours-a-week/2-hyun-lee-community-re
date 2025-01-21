@@ -28,6 +28,7 @@ const DetailPost = () =>{
     const [comments, setComments] = useState([]);
     const [commentCount, setCommentCount] = useState(0);
     const [likeCount, setLikeCount] = useState(0);
+    const [liked, setLiked] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
     const [userId, setUserId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,6 +51,10 @@ const DetailPost = () =>{
                 setLikeCount(postDetails.posts[0].likes_count);
                 setUserId(postDetails.user_id);
                 setCommentCount(postDetails.posts[0].comment_count)
+
+                const likeStatusResult = await userLikeStatus(post_id);
+                const isLiked = likeStatusResult.result.is_exist;
+                setLiked(isLiked);
                 const commentResults = await fetchComments(post_id);
                 setComments(commentResults.comments);
 
@@ -65,12 +70,14 @@ const DetailPost = () =>{
         try {
             const result = await userLikeStatus(post_id);
     
-            const liked = result.result.is_exist;
-      
-            if (liked) {
+            const isLikedBefore = result.result.is_exist;
+            
+            if (isLikedBefore) {
               setLikeCount((prev) => prev - 1);
+              setLiked(false);
             } else {
               setLikeCount((prev) => prev + 1);
+              setLiked(true);
             }
       
             await updatePostLikes(post_id, userId);
@@ -111,6 +118,7 @@ const DetailPost = () =>{
           <PostHeader
             post={post}
             likeCount={likeCount}
+            liked={liked}
             handleLike={handleLike}
             userId={userId}
             handleDeletePost={handleDeletePost}

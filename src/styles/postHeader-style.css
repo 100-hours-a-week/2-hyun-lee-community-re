@@ -59,20 +59,23 @@
 
 
 .stat-item {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 0.5rem; 
     text-align: center;
-    
 }
 
-#like-item{
-    cursor: pointer;
+#like-item img,
+.stat-item img {
+    width: 24px; 
+    height: 24px; 
+    display: block;
 }
 
-.stat-item .stat-number {
-    font-size: 1.25rem;
-    font-weight: bold;
+.stat-number {
+    font-size: 1rem; 
+    font-weight: bold; 
 }
 
-.stat-item .stat-label {
-    font-size: 0.875rem;
-    color: #6c757d;
-}
+

@@ -1,9 +1,10 @@
-import React, { use } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { formatCount } from "../utils/formatCount";
 import { formatDate } from "../utils/formatDate";
 import { Row, Col, Card, Image } from "react-bootstrap";
 import { unescapeHtml } from "../utils/escape";
+import "../styles/postList-style.css";
 const PostItem = ({ post }) =>{
     const navigate =useNavigate();
 
@@ -20,11 +21,20 @@ const PostItem = ({ post }) =>{
       <Card.Body>
         <Card.Title className="mb-3">{unescapeHtml(post.post_title)}</Card.Title>
         <div>
-          <div className="d-flex text-muted small mb-3" style={{ gap: "20px" }}>
-            <span>좋아요 {formatCount(post.likes_count)}</span>
-            <span>댓글 {formatCount(post.comment_count)}</span>
-            <span>조회수 {formatCount(post.view_count)}</span>
-          </div>
+            <div className="d-flex align-items-center text-muted small post-stat-item" style={{ gap: "10px" }}>
+              <div className="d-flex align-items-center">
+                <img src="/images/like1.png" alt="좋아요 아이콘" className="post-icon-small" />
+                <span>{formatCount(post.likes_count)}</span>
+              </div>
+              <div className="d-flex align-items-center">
+                <img src="/images/comments.png" alt="댓글 아이콘" className="post-icon-small" />
+                <span>{formatCount(post.comment_count)}</span>
+              </div>
+              <div className="d-flex align-items-center">
+                <img src="/images/views.png" alt="조회수 아이콘" className="post-icon-small" />
+                <span>{formatCount(post.view_count)}</span>
+              </div>
+            </div>
           <div className="d-flex align-items-center mt-3">
             <Image
               src={post.profile_image}
