@@ -10,9 +10,6 @@ function getBaseUrl() {
   }
   
 const BASE_URL = getBaseUrl();
-const CDN_URL = 'https://d2m8tt5bgy55i.cloudfront.net/';
-const S3_URL = 'https://s3.ap-northeast-2.amazonaws.com/hyun.lee.bucket/';
-  
 
 
 
