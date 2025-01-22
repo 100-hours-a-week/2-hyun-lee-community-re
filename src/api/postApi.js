@@ -160,24 +160,6 @@ export async function deleteComment(post_id, comment_id){
 }
 
 
-// 사용자 삭제시 게시글/댓글 일괄 삭제
-export async function deleteUserComments(user_id){
-    const response = await fetch(`${BASE_URL}/user/${user_id}/comments`,{
-        method:'DELETE',
-        credentials: 'include'
-    });
-    return response.json();
-}
-
-export async function deleteUserPosts(user_id){
-    const response = await fetch(`${BASE_URL}/user/${user_id}/posts`,{
-        method:'DELETE',
-        credentials: 'include'
-    });
-    return response.json();
-}
-
-
 export async function fetchResource(filePath){
     const response = await fetch(`${filePath.replace(CDN_URL,S3_URL)}`);
     return response;

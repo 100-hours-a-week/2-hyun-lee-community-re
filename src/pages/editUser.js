@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 import {  updateUserProfile, deleteUserAccount } from "../api/userApi";
-import { deleteUserComments, deleteUserPosts } from "../api/postApi";
 import { validateNickname } from "../utils/validators";
 import { getImageUrl } from "../api/userApi";
 import ConfirmationModal from "../components/ConfirmationModal";
@@ -113,8 +112,6 @@ const EditUser = () =>{
 
     const handleConfirmWithdraw = async () => {
         try {
-          await deleteUserComments(user.userInfo.user_id);
-          await deleteUserPosts(user.userInfo.user_id);
           await deleteUserAccount(user.userInfo.user_id);
           Swal.fire({
             title: '회원 탈퇴',
