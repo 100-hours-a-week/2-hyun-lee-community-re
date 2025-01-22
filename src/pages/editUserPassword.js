@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
-import { fetchUserData } from "../utils/fetchUserData"
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validateConfirmPassword  } from "../utils/validators";
 import { updateUserPassword, logout } from "../api/userApi";
 import { getImageUrl } from "../api/userApi";
 import Header from "../components/Header";
-import { authCheck } from "../api/authCheckApi";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import "../styles/swal2-style.css";
 
 const EditUserPassword = () =>{
-    const [user, setUser]= useState(null);
+    const { isAuthenticated, user } = useAuthCheck();
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -27,20 +26,15 @@ const EditUserPassword = () =>{
         const fetchData = async ()=>{
             try {
 
-                const isAuthenticated = await authCheck();
                 if (!isAuthenticated) return ;
 
-                const userInfo = await fetchUserData();
-                if (userInfo && userInfo.userInfo) {
-                    setUser(userInfo);
-                } 
             } catch (error) {
                 console.error("Error :", error);
             }
         }
 
         fetchData();
-    },[]);
+    },[isAuthenticated]);
 
     const handlePasswordChange = (e) =>{
         const value = e.target.value;

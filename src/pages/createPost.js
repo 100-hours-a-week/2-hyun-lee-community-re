@@ -3,38 +3,32 @@ import Swal from 'sweetalert2';
 import { validatePostTitle, validatePostContent } from "../utils/validators.js";
 import { createPost } from "../api/postApi.js";
 import { escapeHtml } from "../utils/escape";
-import { fetchUserData } from "../utils/fetchUserData.js";
 import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../api/userApi";
 import Header from "../components/Header";
 import {Card, Button, Form, Row, Col} from "react-bootstrap";
-import { authCheck } from "../api/authCheckApi";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import "../styles/createPost-style.css";
 import "../styles/swal2-style.css";
 
 
 const CreatePost = () =>{
-    const [user, setUser] = useState(null);
+    const { isAuthenticated, user } = useAuthCheck();  
     const [postTitle, setPostTitle] =useState("");
     const [postContent, setPostContent] = useState("");
     const [postImage, setPostImage] = useState(null);
     const [titleError, setTitleError] = useState("*제목을 입력해주세요.");
     const [contentError, setContentError] = useState("*내용을 입력해주세요.");
-    
     const navigate = useNavigate();
 
     const isFormValid = postTitle && postContent && !titleError && !contentError;
 
     useEffect(()=>{
         const fetchUser = async () =>{
-            const isAuthenticated = await authCheck();
-            if (!isAuthenticated) return ;
-            
-            const userInfo = await fetchUserData();
-            if(userInfo) setUser(userInfo);
+          if(!isAuthenticated) return;
         }
         fetchUser();
-    },[navigate]);
+    },[isAuthenticated]);
     const handleTitleChange = (e) => {
         const value = e.target.value;
         setPostTitle(value);

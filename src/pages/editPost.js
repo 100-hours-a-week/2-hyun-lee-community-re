@@ -4,18 +4,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { validatePostTitle, validatePostContent } from "../utils/validators";
 import { fetchPostDetails, updatePost, fetchResource } from "../api/postApi";
 import { escapeHtml } from "../utils/escape";
-import { fetchUserData } from "../utils/fetchUserData.js"; 
 import Header from "../components/Header";
 import { getImageUrl } from "../api/userApi";
 import { Card, Button, Form, Row ,Col } from "react-bootstrap";
 import { unescapeHtml } from "../utils/escape";
-import { authCheck } from "../api/authCheckApi";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import "../styles/editPost-style.css";
 import "../styles/swal2-style.css";
 
 
 const EditPost = () =>{
-    const [user, setUser] = useState(null);
+    const { isAuthenticated, user } = useAuthCheck();  
     const [postTitle, setPostTitle] = useState("");
     const [postContent, setPostContent] = useState("");
     const [existingPostImage, setExistingPostImage] = useState(null);
@@ -37,17 +36,22 @@ const EditPost = () =>{
         
         try{
 
-            const isAuthenticated = await authCheck();
             if (!isAuthenticated) return ;
 
-            const userInfo = await fetchUserData();
-            if(userInfo) setUser(userInfo);
             const postData = await fetchPostDetails(postId);
             const post = postData.posts[0];
-            if(userInfo.userInfo.user_id !== post.user_id) {
-                alert("권한이 없습니다!");
-                navigate("/board");
-                return ;
+  
+            if(user.userInfo.user_id !== post.user_id) {
+                Swal.fire({
+                  title: '알림',
+                  text: '권한이 없습니다.',
+                  icon: 'error',
+                  confirmButtonText: '확인'
+                }).then(async (result) => {
+                  if (result.isConfirmed) {
+                    navigate("/board");
+                    return ;
+                  }})  
             }
             setPostTitle(unescapeHtml(post.post_title));
             setPostContent(unescapeHtml(post.post_content));
@@ -57,7 +61,6 @@ const EditPost = () =>{
                 const blob = await response.blob();
                 const dashIndex = post.post_image.indexOf("-");
                 const fileName = post.post_image.substring(dashIndex + 1);
-               
                 setExistingFileName(fileName);
                 setCurrentFileName(fileName);
                 setCurrentPostImage(new File([blob], fileName, { type: blob.type }));
@@ -70,7 +73,7 @@ const EditPost = () =>{
         }
         }
         fetchData();
-    }, [postId]);
+    }, [isAuthenticated,postId,navigate,user]);
 
     const handleTitleChange = (e) => {
         const value = e.target.value;

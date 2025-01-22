@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { fetchUserData } from "../utils/fetchUserData.js"; 
-
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import {
     fetchPostDetails,
     fetchComments,
@@ -15,7 +14,6 @@ import PostHeader from "../components/PostHeader";
 import CommentsSection from "../components/CommentsSection"
 import ConfirmationModal from "../components/ConfirmationModal";
 import { getImageUrl } from "../api/userApi";
-import { authCheck } from "../api/authCheckApi";
 import "../styles/detailPost-style.css";
 
 
@@ -23,13 +21,13 @@ const DetailPost = () =>{
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const post_id = params.get("post_id");
+    const { isAuthenticated, user } = useAuthCheck();  
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [commentCount, setCommentCount] = useState(0);
     const [likeCount, setLikeCount] = useState(0);
     const [liked, setLiked] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
     const [userId, setUserId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState({});
@@ -39,11 +37,8 @@ const DetailPost = () =>{
             
         
              try {
-                const isAuthenticated = await authCheck();
+          
                 if (!isAuthenticated) return ;
-
-                const currentUser = await fetchUserData();
-                if(currentUser) setCurrentUser(currentUser);
                 
                 const postDetails = await fetchPostDetails(post_id);
                 
@@ -64,7 +59,7 @@ const DetailPost = () =>{
             }
         }
         fetchData();
-    },[post_id]);
+    },[isAuthenticated,post_id]);
     
     const handleLike = async () =>{
         try {
@@ -112,7 +107,7 @@ const DetailPost = () =>{
 
     return (
         <>
-        <Header title="구름 아래" profileImage={currentUser ? getImageUrl(currentUser.userInfo.profile_image) : null} onBack={()=> navigate("/board")} />
+        <Header title="구름 아래" profileImage={user ? getImageUrl(user.userInfo.profile_image) : null} onBack={()=> navigate("/board")} />
         <div className="post-container">
         {post && (
           <PostHeader
@@ -131,7 +126,7 @@ const DetailPost = () =>{
           postId={post_id}
           setComments={setComments}
           setCommentCount={setCommentCount}
-          user={currentUser}
+          user={user}
         />
         </div>
         {isModalOpen && (

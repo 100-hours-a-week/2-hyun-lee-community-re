@@ -5,15 +5,13 @@ import Header from "../components/Header";
 import PostList from "../components/PostList";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { getImageUrl } from "../api/userApi";
-import { fetchUserData } from "../utils/fetchUserData"
-import { authCheck } from "../api/authCheckApi";
 import "../styles/board-style.css";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 
 
 const Board = () =>{
     const [posts, setPosts] =useState([]);
-    const [user, setUser] = useState(null);
-
+    const { isAuthenticated, user } = useAuthCheck();  
     const navigate = useNavigate();
 
     
@@ -22,12 +20,8 @@ const Board = () =>{
         const fetchData = async () =>{
 
             try{
-                const isAuthenticated = await authCheck();
-                if (!isAuthenticated) return ;
+                if(!isAuthenticated) return;
                 
-                const userInfo = await fetchUserData();
-                if(userInfo) setUser(userInfo);
-
             const response = await fetchPosts();
 
             if(Array.isArray(response.posts) && response.posts.length !== 0){
@@ -41,7 +35,7 @@ const Board = () =>{
         };
         fetchData();
           
-    },[navigate]);
+    },[isAuthenticated]);
 
     const handleCreatePost = () =>{
         navigate("/create-post");

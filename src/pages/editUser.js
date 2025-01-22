@@ -6,15 +6,14 @@ import { deleteUserComments, deleteUserPosts } from "../api/postApi";
 import { validateNickname } from "../utils/validators";
 import { getImageUrl } from "../api/userApi";
 import ConfirmationModal from "../components/ConfirmationModal";
-import { fetchUserData } from "../utils/fetchUserData"
 import ProfileImageUpload from "../components/ProfileImageUpload";
 import Header from "../components/Header";
-import { authCheck } from "../api/authCheckApi";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import "../styles/swal2-style.css";
 
 const EditUser = () =>{
-    const [user, setUser]= useState(null);
+    const { isAuthenticated, user } = useAuthCheck();
     const [nickname, setNickname] = useState("");
     const [email, setEmail] = useState("");
     const [existingProfileImage, setExistingProfileImage] = useState(null);
@@ -32,17 +31,14 @@ const EditUser = () =>{
         const fetchData = async ()=>{
             try {
 
-                const isAuthenticated = await authCheck();
+                
                 if (!isAuthenticated) return ;
-
-                const userInfo = await fetchUserData();
   
-                if (userInfo && userInfo.userInfo) {
-                    setUser(userInfo);
-                    setNickname(userInfo.userInfo.nickname);
-                    setEmail(userInfo.userInfo.email); 
-                    setExistingProfileImage(userInfo.userInfo.profile_image);
-                    setProfileImage(userInfo.userInfo.profile_image)
+                if (user && user.userInfo) {
+                    setNickname(user.userInfo.nickname);
+                    setEmail(user.userInfo.email); 
+                    setExistingProfileImage(user.userInfo.profile_image);
+                    setProfileImage(user.userInfo.profile_image)
                 } 
             } catch (error) {
                 console.error("Error :", error);
@@ -50,7 +46,7 @@ const EditUser = () =>{
         }
 
         fetchData();
-    },[]);
+    },[isAuthenticated,user]);
     
 
     const handleNicknameChange = (e) =>{
@@ -126,7 +122,6 @@ const EditUser = () =>{
             icon: 'success',
             confirmButtonText: '확인'
           });
-          
           navigate("/");
         } catch (error) {
           console.error("Error:", error);
